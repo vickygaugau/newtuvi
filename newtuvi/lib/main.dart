@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newtuvi/screens/dashboard_screen.dart';
 import 'package:newtuvi/viewmodels/dashboard_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
