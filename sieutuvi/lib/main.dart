@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newtuvi/screens/dashboard_screen.dart';
-import 'package:newtuvi/viewmodels/dashboard_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:sieutuvi/screens/dashboard_screen.dart';
+import 'package:sieutuvi/viewmodels/dashboard_viewmodel.dart';
 
 void main() {
   runApp(

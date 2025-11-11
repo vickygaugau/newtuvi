@@ -1,4 +1,4 @@
-package com.example.newtuvi
+package com.example.sieutuvi
 
 import io.flutter.embedding.android.FlutterActivity
 

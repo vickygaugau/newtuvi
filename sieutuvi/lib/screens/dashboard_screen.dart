@@ -18,16 +18,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final vm = context.watch<DashboardViewModel>();
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            _buildTopSection(),
-            const SizedBox(height: 16),
-            _buildPageView(),
-            const SizedBox(height: 16),
-            _buildMiddleSection(),
-          ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppAssets.bg),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              _buildTopSection(),
+              const SizedBox(height: 16),
+              _buildPageView(),
+              const SizedBox(height: 16),
+              _buildMiddleSection(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: _buildBottomBar(),
