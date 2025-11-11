@@ -13,51 +13,40 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  late DashboardViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = context.read<DashboardViewModel>();
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<DashboardViewModel>();
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppAssets.bg),
-            fit: BoxFit.cover,
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          Positioned.fill(child: Image.asset(AppAssets.bg, fit: BoxFit.cover)),
+          Positioned.fill(
+            child: Container(color: Colors.black.withValues(alpha: 0.1)),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
+          Column(
             children: [
               const SizedBox(height: 16),
-              _buildTopSection(),
+              _buildTopSection(vm),
               const SizedBox(height: 16),
               _buildPageView(),
               const SizedBox(height: 16),
               _buildMiddleSection(),
+              Spacer(),
+              _buildBottomBar(),
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: _buildBottomBar(),
-    );
-  }
-
-  Widget _square(double size, {String? label}) {
-    return Column(
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        if (label != null) ...[
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12)),
         ],
-      ],
+      ),
     );
   }
 
@@ -77,55 +66,95 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildTopSection() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: SvgPicture.asset(
-                AppAssets.iconHistory,
-                width: 40,
-                height: 40,
-                fit: BoxFit.fill,
+  Widget _buildTopSection(DashboardViewModel vm) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  AppAssets.iconHistory,
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            const Text("TextT", style: TextStyle(fontSize: 16)),
-            _square(40),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _square(60),
-            Column(
-              children: [
-                _square(60),
-                const SizedBox(height: 4),
-                const Text("Text"),
-              ],
-            ),
-            _square(60),
-          ],
-        ),
-        const SizedBox(height: 12),
-        _square(40),
-      ],
+              Text(
+                viewModel.todayData?.lichDuongThu ?? "",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  AppAssets.iconPlus,
+                  width: 32,
+                  height: 32,
+                  fit: BoxFit.fill,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Container(color: Colors.cyan, width: 60, height: 60),
+              ),
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      viewModel.solarDate.day.toString(),
+                      style: TextStyle(
+                        fontSize: 60,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text("Text"),
+                ],
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(color: Colors.cyan, width: 60, height: 60),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          InkWell(
+            onTap: () {},
+            child: Container(color: Colors.cyan, width: 60, height: 60),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildMiddleSection() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             children: [
-              _square(40),
+              InkWell(
+                onTap: () {},
+                child: Container(color: Colors.cyan, width: 60, height: 60),
+              ),
               const SizedBox(height: 6),
               const Text("Text"),
               const Text("Text"),
@@ -154,20 +183,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 6,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          for (int i = 0; i < 5; i++) i == 2 ? _square(40) : _square(30),
+          for (int i = 0; i < 5; i++)
+            i == 2
+                ? InkWell(
+                    onTap: () {},
+                    child: Container(color: Colors.cyan, width: 60, height: 60),
+                  )
+                : InkWell(
+                    onTap: () {},
+                    child: Container(color: Colors.cyan, width: 60, height: 60),
+                  ),
         ],
       ),
     );
