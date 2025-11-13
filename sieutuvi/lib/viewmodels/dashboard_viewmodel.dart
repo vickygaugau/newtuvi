@@ -21,6 +21,10 @@ class DashboardViewModel extends ChangeNotifier {
     notifyListeners(); // UI rebuild ngay
   }
 
+  String getThangNamString() {
+    return "Tháng ${solarDate.month} năm ${solarDate.year}";
+  }
+
   void setDate(DateTime solar, LunarDate lunar) {
     solarDate = solar;
     lunarDate = lunar;

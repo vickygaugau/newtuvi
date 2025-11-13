@@ -43,6 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _buildMiddleSection(),
               Spacer(),
               _buildBottomBar(),
+              const SizedBox(height: 16),
             ],
           ),
         ],
@@ -71,6 +72,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Column(
         children: [
+          // + Thứ 6
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,12 +83,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   width: 32,
                   height: 32,
                   fit: BoxFit.fill,
+                  color: Colors.white,
                 ),
               ),
               Text(
                 viewModel.todayData?.lichDuongThu ?? "",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -103,12 +106,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ],
           ),
+          // Icon Ngày Tháng Icon
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
                 onTap: () {},
-                child: Container(color: Colors.cyan, width: 60, height: 60),
+                child: Image.asset(
+                  AppAssets.iconSun,
+                  fit: BoxFit.contain,
+                  width: 50,
+                  height: 50,
+                ),
               ),
               Column(
                 children: [
@@ -117,26 +127,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Text(
                       viewModel.solarDate.day.toString(),
                       style: TextStyle(
-                        fontSize: 60,
+                        fontSize: 80,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  const Text("Text"),
+                  Text(
+                    viewModel.getThangNamString(),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               InkWell(
                 onTap: () {},
-                child: Container(color: Colors.cyan, width: 60, height: 60),
+                child: Image.asset(
+                  AppAssets.iconSun,
+                  fit: BoxFit.contain,
+                  width: 50,
+                  height: 50,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 12),
           InkWell(
             onTap: () {},
-            child: Container(color: Colors.cyan, width: 60, height: 60),
+            child: Image.asset(
+              AppAssets.iconConGiap,
+              fit: BoxFit.contain,
+              width: 70,
+              height: 70,
+            ),
           ),
         ],
       ),
