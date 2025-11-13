@@ -9,6 +9,7 @@ class DashboardViewModel extends ChangeNotifier {
   DateTime solarDate = DateTime.now();
   LunarDate? lunarDate;
   CalendarDayData? todayData;
+  List<String> listLoiHayYDep = [];
 
   DashboardViewModel() {
     _initToday(); // Gọi khi init
@@ -18,6 +19,7 @@ class DashboardViewModel extends ChangeNotifier {
     solarDate = DateTime.now();
     lunarDate = LunarDate.fromSolar(solarDate);
     todayData = await CalendarRepository().getDayData(solarDate);
+    listLoiHayYDep = await CalendarRepository().getLoiHayYDep();
     notifyListeners(); // UI rebuild ngay
   }
 

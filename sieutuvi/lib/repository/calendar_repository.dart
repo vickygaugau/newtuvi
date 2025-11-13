@@ -11,7 +11,9 @@ class CalendarRepository {
   Future<Map<String, CalendarDayData>> loadYear(int year) async {
     if (_cache.containsKey(year)) return _cache[year]!;
 
-    final fileText = await rootBundle.loadString("assets/data/$year.txt");
+    final fileText = await rootBundle.loadString(
+      "assets/data/lichvannien/$year.txt",
+    );
 
     final records = fileText.split("----------");
     final Map<String, CalendarDayData> dataMap = {};
@@ -41,5 +43,26 @@ class CalendarRepository {
     final key = "${date.day}_${date.month}_$year";
 
     return map[key];
+  }
+
+  /// Lấy data theo ngày
+  Future<List<String>> getLoiHayYDep() async {
+    try {
+      final raw = await rootBundle.loadString(
+        'assets/data/loihayydep/loihayydep.txt',
+      );
+
+      // Tách theo "-----"
+      final quotes = raw
+          .split('-----')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList();
+
+      return quotes;
+    } catch (e) {
+      print('Lỗi khi đọc file loihayydep.txt: $e');
+      return [];
+    }
   }
 }
