@@ -27,6 +27,7 @@ flutter:
   assets:
     - assets/data/
     - assets/data/lichvannien/
+    - assets/data/loihayydep/
     - assets/icons/
     - assets/images/
   uses-material-design: true

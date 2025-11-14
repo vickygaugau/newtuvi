@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../values/app_assets.dart';
 import '../viewmodels/dashboard_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -53,16 +54,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildPageView() {
     return SizedBox(
-      height: 160,
+      height: 180,
       child: PageView.builder(
-        itemCount: 5,
-        itemBuilder: (_, __) => Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+        itemCount: 3,
+        itemBuilder: (_, index) {
+          switch (index) {
+            case 0:
+              return _buildPageLoiHayYDep();
+            case 1:
+              return _buildPageLoiHayYDep();
+            case 2:
+              return _buildPageLoiHayYDep();
+            default:
+              return const SizedBox();
+          }
+        },
       ),
     );
   }
@@ -223,6 +229,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Container(color: Colors.cyan, width: 60, height: 60),
                   ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPageLoiHayYDep() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(
+        child: Text(
+          viewModel.listLoiHayYDep[Random().nextInt(
+            viewModel.listLoiHayYDep.length,
+          )],
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
