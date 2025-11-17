@@ -13,7 +13,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final List<String> options = ["Aries", "Aries", "Aries", "Aries"];
+  final List<String> options = ["Aries", "Aries1", "Aries2", "Aries"];
   ScrollController _scrollController = ScrollController();
 
   final TextEditingController _controller = TextEditingController();
