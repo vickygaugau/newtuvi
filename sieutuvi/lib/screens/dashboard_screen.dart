@@ -142,16 +142,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               Column(
                 children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      viewModel.solarDate.day.toString(),
-                      style: TextStyle(
-                        fontSize: 80,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  // Customize display
+                  LunarCalendarPicker(
+                    initialSolarDate: DateTime.now(),
+                    onDateSelected: (solarDate, lunarDate) {
+                      viewModel.setDate(solarDate, lunarDate);
+                      viewModel.loadDate(solarDate);
+                    },
+                    dateText: viewModel.solarDate.day.toString(),
+                    textStyle: TextStyle(
+                      fontSize: 80,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
+                    icon: null,
                   ),
                   Text(
                     viewModel.getThangNamString(),
