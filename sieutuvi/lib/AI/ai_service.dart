@@ -3,18 +3,17 @@ import 'package:http/http.dart' as http;
 import 'package:sieutuvi/values/key.dart';
 
 class AIService {
-  static final _apiKey = APIKey.openAI;
-
-  static String get apiKey => _apiKey;
+  static String apiKey = APIKey.openAI;
 
   static const String _url = "https://api.openai.com/v1/chat/completions";
 
   static Stream<String> streamChat(String prompt) async* {
+    apiKey = APIKey.openAI;
     final request = http.Request("POST", Uri.parse(_url));
 
     request.headers.addAll({
       "Content-Type": "application/json",
-      "Authorization": "Bearer $_apiKey",
+      "Authorization": "Bearer $apiKey",
     });
 
     request.body = jsonEncode({
@@ -26,6 +25,18 @@ class AIService {
     });
 
     final response = await request.send();
+
+    // Kiểm tra status code trước
+    if (response.statusCode != 200) {
+      final body = await response.stream.bytesToString();
+      try {
+        final jsonData = jsonDecode(body);
+        final errorMsg = jsonData["error"]?["message"] ?? "Unknown error";
+        throw Exception("OpenAI API error: $errorMsg");
+      } catch (_) {
+        throw Exception("OpenAI API error: ${response.statusCode}");
+      }
+    }
 
     // Đọc từng chunk dữ liệu
     await for (final chunk in response.stream.transform(utf8.decoder)) {

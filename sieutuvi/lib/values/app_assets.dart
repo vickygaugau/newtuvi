@@ -10,5 +10,6 @@ class AppAssets {
   // PNG JPEG
   static const String iconSun = '${imagePath}ic_sun.png';
   static const String iconConGiap = '${imagePath}ic_congiap.png';
+  static const String iconThayDo = '${imagePath}ic_thaydo.png';
   static const String bg = '${imagePath}bg.jpeg';
 }

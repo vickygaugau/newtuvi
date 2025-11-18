@@ -15,7 +15,7 @@ class ChineseHoroscopeService {
 
     final params = {
       "date": DateTime.now().toString(),
-      "sign": "TIGER",
+      "sign": sign,
       "api_key": APIKey.chinese_horoscope,
       "timezone": 7.0,
     };
