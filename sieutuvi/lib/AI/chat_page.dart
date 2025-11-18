@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sieutuvi/AI/TuVi/horoscope_service.dart';
+import 'package:sieutuvi/models/cunghoangdao_model.dart';
 
 import 'ai_provider.dart';
 import 'chat_provider.dart';
@@ -13,9 +14,10 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final List<String> options = ["Aries", "Aries1", "Aries2", "Aries"];
-  ScrollController _scrollController = ScrollController();
+  final List<EnumCungHoangDao> listCungHoangDao = EnumCungHoangDao.values;
+  final List<Enum12ConGiap> listConGiap = Enum12ConGiap.values;
 
+  ScrollController _scrollController = ScrollController();
   final TextEditingController _controller = TextEditingController();
 
   void _onSend() {
@@ -37,10 +39,30 @@ class _ChatPageState extends State<ChatPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text("AI Chat")),
+      appBar: AppBar(
+        title: const Text("AI Chat"),
+        actions: [
+          IconButton(
+            icon: Icon(
+              chat.isOptionsVisible
+                  ? Icons.keyboard_arrow_up
+                  : Icons.keyboard_arrow_down,
+            ),
+            onPressed: () {
+              chat.updateOptionVisible();
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          _createRowOption(),
+          if (chat.isOptionsVisible)
+            Column(
+              children: [
+                _createRowHoroscopeOption(),
+                _createRowChineseHoroscopeOption(),
+              ],
+            ),
 
           Expanded(
             child: ListView.builder(
@@ -112,32 +134,84 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  Widget _createRowOption() {
+  Widget _createRowHoroscopeOption() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      alignment: Alignment.centerLeft,
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: options.map((op) {
-          return GestureDetector(
-            onTap: () => _onOptionTap(op),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.blue, width: 1.2),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+      height: 55, // chiều cao cố định để scroll ngang
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: listCungHoangDao.map((op) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                right: 8,
+              ), // spacing giữa các option
+              child: GestureDetector(
+                onTap: () => _onOptionHoroscopeTap(op),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.blue, width: 1.2),
+                  ),
+                  child: Text(
+                    op.vnName,
+                    style: const TextStyle(color: Colors.blue),
+                  ),
+                ),
               ),
-              child: Text(op, style: const TextStyle(color: Colors.blue)),
-            ),
-          );
-        }).toList(),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
 
-  void _onOptionTap(String option) {
+  Widget _createRowChineseHoroscopeOption() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+      height: 55, // chiều cao cố định để scroll ngang
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: listConGiap.map((op) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                right: 8,
+              ), // spacing giữa các option
+              child: GestureDetector(
+                onTap: () => _onOptionChineseHoroscopeTap(op),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.blue, width: 1.2),
+                  ),
+                  child: Text(
+                    op.vnName,
+                    style: const TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  void _onOptionHoroscopeTap(EnumCungHoangDao option) {
     context.read<ChatProvider>().sendHoroscope(option);
+  }
+
+  void _onOptionChineseHoroscopeTap(Enum12ConGiap option) {
+    context.read<ChatProvider>().sendChineseHoroscope(option);
   }
 
   void _scrollToBottom() {
