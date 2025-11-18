@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:sieutuvi/values/key.dart';
 
 class AIService {
-  static const _apiKey =
-      "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";
+  static final _apiKey = APIKey.openAI;
+
   static String get apiKey => _apiKey;
 
   static const String _url = "https://api.openai.com/v1/chat/completions";

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sieutuvi/AI/ai_provider.dart';
 
+import '../../values/key.dart';
 import '../ai_service.dart';
 
 class ChineseHoroscopeService {
@@ -15,7 +16,7 @@ class ChineseHoroscopeService {
     final params = {
       "date": DateTime.now().toString(),
       "sign": "TIGER",
-      "api_key": "AIzaSyDaGmWKa4JsXZ-HjGw7ISLn_3namBGewQe",
+      "api_key": APIKey.chinese_horoscope,
       "timezone": 7.0,
     };
 
