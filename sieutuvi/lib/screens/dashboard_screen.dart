@@ -182,10 +182,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           InkWell(
             onTap: () {},
             child: Image.asset(
-              AppAssets.iconConGiap,
-              fit: BoxFit.contain,
-              width: 70,
-              height: 70,
+              width: 80,
+              height: 80,
+              Utils.getImage12congiap(
+                viewModel.todayData?.lichDuongImage ?? '',
+              ),
             ),
           ),
         ],
@@ -213,7 +214,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       InkWell(
                         onTap: () {},
                         child: Image.asset(
-                          viewModel.todayData?.lichDuongImage ?? '',
+                          Utils.getImage12congiap(
+                            viewModel.todayData?.lichDuongImage ?? '',
+                          ),
                         ),
                       ),
                       Text(

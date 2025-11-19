@@ -12,4 +12,18 @@ class AppAssets {
   static const String iconConGiap = '${imagePath}ic_congiap.png';
   static const String iconThayDo = '${imagePath}ic_thaydo.png';
   static const String bg = '${imagePath}bg.jpeg';
+
+  // 12 Con Giap
+  static const String cgTi = '${imagePath}1ti.png';
+  static const String cgSuu = '${imagePath}2suu.png';
+  static const String cgDan = '${imagePath}3dan.png';
+  static const String cgMeo = '${imagePath}4meo.png';
+  static const String cgThin = '${imagePath}5rong.png';
+  static const String cgTy = '${imagePath}6ty.png';
+  static const String cgNgo = '${imagePath}7ngua.png';
+  static const String cgMui = '${imagePath}8de.png';
+  static const String cgThan = '${imagePath}9than.png';
+  static const String cgDau = '${imagePath}10ga.png';
+  static const String cgTuat = '${imagePath}11tuat.png';
+  static const String cgHoi = '${imagePath}12heo.png';
 }
