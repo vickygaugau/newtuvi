@@ -306,9 +306,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       child: Center(
         child: Text(
-          viewModel.listLoiHayYDep[Random().nextInt(
-            viewModel.listLoiHayYDep.length,
-          )],
+          viewModel.listLoiHayYDep.isEmpty
+              ? ""
+              : viewModel.listLoiHayYDep[Random().nextInt(
+                  viewModel.listLoiHayYDep.length,
+                )],
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 18,
