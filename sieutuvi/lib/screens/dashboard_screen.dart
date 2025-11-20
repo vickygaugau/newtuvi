@@ -188,7 +188,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               height: 80,
               radius: 40, // bán kính vòng tròn hạt quay
               speed: 0.8, // tốc độ quay
-              particleCount: 100, // số lượng hạt
+              particleCount: 50, // số lượng hạt
               intensity: 1.0, // độ sáng hạt
               child: Image.asset(
                 width: 80,
