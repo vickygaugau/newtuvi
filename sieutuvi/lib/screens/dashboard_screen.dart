@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sieutuvi/AI/chat_page.dart';
 import 'package:sieutuvi/screens/user_info_page.dart';
 import '../values/app_assets.dart';
+import '../values/moon_phase/moon_phase_widget.dart';
 import '../values/utils.dart';
 import '../viewmodels/dashboard_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -211,14 +212,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Image.asset(
-                          Utils.getImage12congiap(
-                            viewModel.todayData?.lichDuongImage ?? '',
-                          ),
-                        ),
-                      ),
+                      buildEnhancedAnimatedMoonFromDate(DateTime.now()),
                       Text(
                         viewModel.todayData?.lichAmNgay ?? "",
                         style: TextStyle(
