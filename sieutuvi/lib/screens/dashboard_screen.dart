@@ -3,6 +3,7 @@ import 'package:lunar_calendar_plus/lunar_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:sieutuvi/AI/chat_page.dart';
 import 'package:sieutuvi/screens/user_info_page.dart';
+import 'package:sieutuvi/values/dusty_widget.dart';
 import '../values/app_assets.dart';
 import '../values/moon_phase/moon_phase_widget.dart';
 import '../values/utils.dart';
@@ -182,11 +183,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 12),
           InkWell(
             onTap: () {},
-            child: Image.asset(
+            child: DustyImage(
               width: 80,
               height: 80,
-              Utils.getImage12congiap(
-                viewModel.todayData?.lichDuongImage ?? '',
+              radius: 40, // bán kính vòng tròn hạt quay
+              speed: 0.8, // tốc độ quay
+              particleCount: 100, // số lượng hạt
+              intensity: 1.0, // độ sáng hạt
+              child: Image.asset(
+                width: 80,
+                height: 80,
+                Utils.getImage12congiap(
+                  viewModel.todayData?.lichDuongImage ?? '',
+                ),
               ),
             ),
           ),
@@ -212,7 +221,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      buildEnhancedAnimatedMoonFromDate(DateTime.now()),
+                      buildEnhancedAnimatedMoonFromDate(viewModel.solarDate),
                       Text(
                         viewModel.todayData?.lichAmNgay ?? "",
                         style: TextStyle(
