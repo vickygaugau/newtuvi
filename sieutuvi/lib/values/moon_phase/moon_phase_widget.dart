@@ -292,7 +292,7 @@ class _EnhancedMoonPhaseWidgetState extends State<EnhancedMoonPhaseWidget>
 Widget buildEnhancedAnimatedMoonFromDate(
   DateTime date, {
   double sunAngle = 0.0,
-  double size = 70,
+  double size = 60,
 }) {
   final fraction = moonPhaseFraction(date);
   return EnhancedMoonPhaseWidget(

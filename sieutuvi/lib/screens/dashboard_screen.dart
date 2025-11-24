@@ -30,7 +30,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<DashboardViewModel>();
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       drawer: _buildLeftMenu(),
@@ -42,15 +41,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Column(
             children: [
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               _buildTopSection(vm),
               const SizedBox(height: 16),
               _buildPageView(),
               const SizedBox(height: 16),
-              _buildMiddleSection(),
-              Spacer(),
-              _buildBottomBar(),
-              const SizedBox(height: 16),
+              Expanded(child: _buildMiddleSection()),
             ],
           ),
         ],
@@ -60,7 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildPageView() {
     return SizedBox(
-      height: 180,
+      height: 100,
       child: PageView.builder(
         itemCount: 3,
         itemBuilder: (_, index) {
@@ -206,103 +202,160 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildMiddleSection() {
     return Container(
-      height: 200,
       color: Colors.black.withValues(alpha: 0.5),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch, // hoặc start
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.stretch, // hoặc start
                     children: [
-                      buildEnhancedAnimatedMoonFromDate(viewModel.solarDate),
-                      const SizedBox(height: 4),
-                      Text(
-                        "Lịch Âm",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          height: 1.2, // giảm khoảng cách dòng
+                      SizedBox(
+                        width: 100,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 8),
+                            buildEnhancedAnimatedMoonFromDate(
+                              viewModel.solarDate,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "Lịch Âm",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                height: 1.2, // giảm khoảng cách dòng
+                              ),
+                            ),
+                            Text(
+                              viewModel.todayData?.lichAmNgay ?? "",
+                              style: TextStyle(
+                                fontSize: 40,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                height: 1.2, // giảm khoảng cách dòng
+                              ),
+                            ),
+                            // const Text(
+                            //   "GIỜ",
+                            //   style: TextStyle(
+                            //     fontSize: 12,
+                            //     color: Colors.white,
+                            //     fontWeight: FontWeight.normal,
+                            //     height: 1.2,
+                            //   ),
+                            // ),
+                            // Text(
+                            //   Utils.getCurrentTime24h(),
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     color: Colors.white,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ),
-                      Text(
-                        viewModel.todayData?.lichAmNgay ?? "",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          height: 1.2, // giảm khoảng cách dòng
-                        ),
-                      ),
-                      const Text(
-                        "GIỜ",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                          height: 1.2,
-                        ),
-                      ),
-                      Text(
-                        Utils.getCurrentTime24h(),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              viewModel.todayData?.lichAmTitle ?? '',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              viewModel.getLichAmChiTiet(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                const SizedBox(width: 24),
-                Container(color: Colors.white, width: 1),
-                const SizedBox(width: 24),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text("Text"),
-                      SizedBox(height: 6),
-                      Text("Text"),
-                      SizedBox(height: 6),
-                      Text("Text"),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            _buildChiTietHomNay(
+              "Việc Nên Làm",
+              viewModel.getViecNenLamChiTiet(),
+            ),
+            _buildChiTietHomNay("Giờ Hắc Đạo", viewModel.getGioHacDaoChiTiet()),
+            _buildChiTietHomNay(
+              "Giờ Hoàng Đạo",
+              viewModel.getGioHoangDaoChiTiet(),
+            ),
+            _buildChiTietHomNay(
+              "Giờ Mặt Trời",
+              viewModel.getGioMatTroiChiTiet(),
+            ),
+            _buildChiTietHomNay(
+              "Giờ Mặt Trăng",
+              viewModel.getGioMatTrangChiTiet(),
+            ),
+            _buildChiTietHomNay(
+              "Hướng Xuất Hành",
+              viewModel.getHuongXuatHanh(),
+            ),
+            _buildChiTietHomNay("Tuổi Xung Khắc", viewModel.getTuoiXungKhac()),
+            _buildChiTietHomNay("Hợp Xung", viewModel.getHopXung()),
+            _buildChiTietHomNay("Sao Tốt Xấu", viewModel.getSaoTotXau()),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildBottomBar() {
-    return Container(
-      height: 60,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+  Widget _buildChiTietHomNay(String title, String chitiet) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (int i = 0; i < 5; i++)
-            i == 2
-                ? InkWell(
-                    onTap: () {},
-                    child: Container(color: Colors.cyan, width: 60, height: 60),
-                  )
-                : InkWell(
-                    onTap: () {},
-                    child: Container(color: Colors.cyan, width: 60, height: 60),
-                  ),
+          SizedBox(
+            width: 120,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                height: 1.2, // giảm khoảng cách dòng
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              chitiet,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                height: 1.4, // giảm khoảng cách dòng
+              ),
+            ),
+          ),
         ],
       ),
     );
