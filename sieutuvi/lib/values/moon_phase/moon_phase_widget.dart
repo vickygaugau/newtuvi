@@ -87,7 +87,7 @@ class _EnhancedMoonPainter extends CustomPainter {
         (lightCenter.dy - cy) / radius,
       ),
       radius: 0.95,
-      colors: [Color(0xFFFFFFE7), Color(0xFFFFF3C6), Color(0xFFFFFFFF)],
+      colors: [Color(0xFFFFF7E5), Color(0xFFFFF4CC), Color(0xFFFFF9D9)],
       stops: [0.0, 0.6, 1.0],
     );
 
@@ -100,8 +100,8 @@ class _EnhancedMoonPainter extends CustomPainter {
           center: Alignment((cx - (cx + offset)) / radius, 0),
           radius: 1.0,
           colors: [
-            Colors.black.withOpacity(0.35),
-            Colors.black.withOpacity(0.05),
+            Colors.black.withOpacity(0.75),
+            Colors.black.withOpacity(0.45),
           ],
           stops: [0.0, 1.0],
         ).createShader(moonRect)

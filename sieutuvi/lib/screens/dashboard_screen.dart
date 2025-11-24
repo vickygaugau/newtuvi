@@ -222,6 +222,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       buildEnhancedAnimatedMoonFromDate(viewModel.solarDate),
+                      const SizedBox(height: 4),
+                      Text(
+                        "Lịch Âm",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          height: 1.2, // giảm khoảng cách dòng
+                        ),
+                      ),
                       Text(
                         viewModel.todayData?.lichAmNgay ?? "",
                         style: TextStyle(
@@ -234,15 +244,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const Text(
                         "GIỜ",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 12,
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
+                          height: 1.2,
                         ),
                       ),
                       Text(
                         Utils.getCurrentTime24h(),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
