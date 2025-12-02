@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as _;
 import 'package:provider/provider.dart';
 import 'package:sieutuvi/screens/dashboard_screen.dart';
+import 'package:sieutuvi/values/debouncer.dart';
 import 'package:sieutuvi/viewmodels/dashboard_viewmodel.dart';
 
 import 'AI/ai_provider.dart';
@@ -36,8 +39,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

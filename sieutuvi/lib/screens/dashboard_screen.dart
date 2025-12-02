@@ -20,6 +20,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   late DashboardViewModel viewModel;
+  double cutoutHeight = 0;
 
   @override
   void initState() {
@@ -29,6 +30,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    cutoutHeight = MediaQuery.of(context).viewPadding.top;
+
     final vm = context.watch<DashboardViewModel>();
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -41,6 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Column(
             children: [
+              (cutoutHeight > 0) ? const SizedBox(height: 50) : Container(),
               const SizedBox(height: 20),
               _buildTopSection(vm),
               const SizedBox(height: 16),
@@ -58,15 +62,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return SizedBox(
       height: 100,
       child: PageView.builder(
-        itemCount: 3,
+        itemCount: 1,
         itemBuilder: (_, index) {
           switch (index) {
             case 0:
               return _buildPageLoiHayYDep();
-            case 1:
-              return _buildPageLoiHayYDep();
-            case 2:
-              return _buildPageLoiHayYDep();
+            // case 1:
+            //   return _buildPageLoiHayYDep();
+            // case 2:
+            //   return _buildPageLoiHayYDep();
             default:
               return const SizedBox();
           }
@@ -321,6 +325,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _buildChiTietHomNay("Tuổi Xung Khắc", viewModel.getTuoiXungKhac()),
             _buildChiTietHomNay("Hợp Xung", viewModel.getHopXung()),
             _buildChiTietHomNay("Sao Tốt Xấu", viewModel.getSaoTotXau()),
+            const SizedBox(height: 18),
           ],
         ),
       ),
