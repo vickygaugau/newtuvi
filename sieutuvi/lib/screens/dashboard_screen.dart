@@ -35,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final vm = context.watch<DashboardViewModel>();
     return Scaffold(
       backgroundColor: Colors.transparent,
-      drawer: _buildLeftMenu(),
+      // drawer: _buildLeftMenu(),
       body: Stack(
         children: [
           Positioned.fill(child: Image.asset(AppAssets.bg, fit: BoxFit.cover)),
@@ -92,7 +92,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 builder: (context) {
                   return InkWell(
                     onTap: () {
-                      Scaffold.of(context).openDrawer();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserInfoPage(),
+                        ),
+                      );
+                      // Scaffold.of(context).openDrawer();
                     },
                     child: SvgPicture.asset(
                       AppAssets.iconHistory,
@@ -392,6 +398,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildLeftMenu() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const UserInfoPage()),
+    );
     return Drawer(
       child: SafeArea(
         child: Column(
