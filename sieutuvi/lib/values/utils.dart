@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sieutuvi/values/app_assets.dart'; // để format giờ
 
@@ -48,5 +50,20 @@ class Utils {
       default:
         return AppAssets.cgThin;
     }
+  }
+
+  static Widget createBackgroundWidget({required Widget child}) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          Positioned.fill(child: Image.asset(AppAssets.bg, fit: BoxFit.cover)),
+          Positioned.fill(
+            child: Container(color: Colors.black.withValues(alpha: 0.1)),
+          ),
+          Column(children: [child]),
+        ],
+      ),
+    );
   }
 }

@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
+import '../values/utils.dart';
+
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({super.key});
 
@@ -149,72 +151,66 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("User Information")),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Tên
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: "Tên",
-                border: OutlineInputBorder(),
+    return Utils.createBackgroundWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Tên
+          TextField(
+            controller: _nameController,
+            decoration: InputDecoration(
+              labelText: "Tên",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 20),
+
+          // Ngày sinh
+          GestureDetector(
+            onTap: pickDate,
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                _dob == null
+                    ? "Chọn ngày sinh"
+                    : "${_dob!.day}/${_dob!.month}/${_dob!.year}",
+                style: TextStyle(fontSize: 16),
               ),
             ),
-            SizedBox(height: 20),
+          ),
+          SizedBox(height: 20),
 
-            // Ngày sinh
-            GestureDetector(
-              onTap: pickDate,
-              child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+          // Location
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
                 child: Text(
-                  _dob == null
-                      ? "Chọn ngày sinh"
-                      : "${_dob!.day}/${_dob!.month}/${_dob!.year}",
+                  _location ?? "Chưa lấy vị trí",
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-
-            // Location
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    _location ?? "Chưa lấy vị trí",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: getLocation,
-                  child: Text("Get Location"),
-                ),
-              ],
-            ),
-
-            Spacer(),
-
-            // Save button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: saveData,
-                child: Text("Lưu lại"),
+              SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: getLocation,
+                child: Text("Get Location"),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+
+          Spacer(),
+
+          // Save button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(onPressed: saveData, child: Text("Lưu lại")),
+          ),
+        ],
       ),
     );
   }
