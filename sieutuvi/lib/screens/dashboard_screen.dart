@@ -20,7 +20,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   late DashboardViewModel viewModel;
-  double cutoutHeight = 0;
 
   @override
   void initState() {
@@ -30,29 +29,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    cutoutHeight = MediaQuery.of(context).viewPadding.top;
-
     final vm = context.watch<DashboardViewModel>();
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      // drawer: _buildLeftMenu(),
-      body: Stack(
+    return Utils.createBackgroundWidget(
+      child: Column(
         children: [
-          Positioned.fill(child: Image.asset(AppAssets.bg, fit: BoxFit.cover)),
-          Positioned.fill(
-            child: Container(color: Colors.black.withValues(alpha: 0.1)),
-          ),
-          Column(
-            children: [
-              (cutoutHeight > 0) ? const SizedBox(height: 50) : Container(),
-              const SizedBox(height: 20),
-              _buildTopSection(vm),
-              const SizedBox(height: 16),
-              _buildPageView(),
-              const SizedBox(height: 16),
-              Expanded(child: _buildMiddleSection()),
-            ],
-          ),
+          const SizedBox(height: 20),
+          _buildTopSection(vm),
+          const SizedBox(height: 16),
+          _buildPageView(),
+          const SizedBox(height: 16),
+          Expanded(child: _buildMiddleSection()),
         ],
       ),
     );

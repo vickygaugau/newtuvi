@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:sieutuvi/values/app_assets.dart'; // để format giờ
 
 class Utils {
+  static double cutoutHeight = 0;
+
   static String getCurrentTime24h() {
     final now = DateTime.now();
     return DateFormat('HH:mm').format(now);
@@ -61,7 +63,14 @@ class Utils {
           Positioned.fill(
             child: Container(color: Colors.black.withValues(alpha: 0.1)),
           ),
-          Column(children: [child]),
+          Column(
+            children: [
+              (Utils.cutoutHeight > 0)
+                  ? const SizedBox(height: 50)
+                  : Container(),
+              Expanded(child: child),
+            ],
+          ),
         ],
       ),
     );
