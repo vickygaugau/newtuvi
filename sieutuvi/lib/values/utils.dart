@@ -54,9 +54,23 @@ class Utils {
     }
   }
 
-  static Widget createBackgroundWidget({required Widget child}) {
+  static Widget createBackgroundWidget({
+    required BuildContext context,
+    required Widget child,
+  }) {
+    final bool showAppBar = Navigator.of(context).canPop();
+
     return Scaffold(
       backgroundColor: Colors.transparent,
+      appBar: showAppBar
+          ? AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              surfaceTintColor: Colors.transparent,
+            )
+          : null,
+      extendBodyBehindAppBar: true,
+
       body: Stack(
         children: [
           Positioned.fill(child: Image.asset(AppAssets.bg, fit: BoxFit.cover)),
@@ -66,8 +80,9 @@ class Utils {
           Column(
             children: [
               (Utils.cutoutHeight > 0)
-                  ? const SizedBox(height: 50)
+                  ? const SizedBox(height: 70)
                   : Container(),
+              showAppBar ? SizedBox(height: 50) : Container(),
               Expanded(child: child),
             ],
           ),

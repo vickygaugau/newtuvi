@@ -31,9 +31,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     final vm = context.watch<DashboardViewModel>();
     return Utils.createBackgroundWidget(
+      context: context,
       child: Column(
         children: [
-          const SizedBox(height: 20),
           _buildTopSection(vm),
           const SizedBox(height: 16),
           _buildPageView(),
