@@ -6,6 +6,11 @@ import '../models/calendar_day_data_model.dart';
 import '../repository/calendar_repository.dart';
 
 class DashboardViewModel extends ChangeNotifier {
+  List listSapTet = [
+    {'24/12/2025': 'Noel'},
+    {'01/01/2026': 'Tết Dương Lịch'},
+  ];
+
   DateTime solarDate = DateTime.now();
   LunarDate? lunarDate;
   CalendarDayData? todayData;
@@ -144,6 +149,33 @@ class DashboardViewModel extends ChangeNotifier {
       }
     }
     return full;
+  }
+
+  List<String> getListSapTet() {
+    final now = DateTime.now();
+    List<String> results = [];
+
+    for (var item in listSapTet) {
+      // mỗi item chỉ có 1 key-value
+      String dateStr = item.keys.first;
+      String text = item.values.first;
+
+      // parse ngày dạng dd/MM/yyyy
+      List<String> parts = dateStr.split('/');
+      int day = int.parse(parts[0]);
+      int month = int.parse(parts[1]);
+      int year = int.parse(parts[2]);
+
+      DateTime eventDate = DateTime(year, month, day);
+
+      // tính số ngày còn lại
+      int daysLeft = eventDate.difference(now).inDays;
+
+      // thêm nội dung (value)
+      results.add("Còn $daysLeft ngày nữa tới $text");
+    }
+
+    return results;
   }
 
   String get solarString =>

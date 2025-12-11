@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lunar_calendar_plus/lunar_calendar.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 16),
           _buildPageView(),
           const SizedBox(height: 16),
+          _buildSapTetWidget(),
           Expanded(child: _buildMiddleSection()),
         ],
       ),
@@ -380,6 +382,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSapTetWidget() {
+    return Column(
+      children: [
+        Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Container(
+              color: Colors.black.withValues(alpha: 0.5),
+              height: 40, // bắt buộc cần chiều cao cho PageView
+              child: PageView(
+                children: viewModel.getListSapTet().map((text) {
+                  return Center(
+                    child: Text(
+                      text,
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                child: Icon(
+                  CupertinoIcons.forward, // icon system iOS
+                  color: Colors.white,
+                  size: 12,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                child: Icon(
+                  CupertinoIcons.back, // icon system iOS
+                  color: Colors.white,
+                  size: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Container(height: 0.5, color: Colors.white.withAlpha(50)),
+      ],
     );
   }
 

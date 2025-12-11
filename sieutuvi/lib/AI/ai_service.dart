@@ -5,7 +5,7 @@ import 'package:sieutuvi/values/key.dart';
 class AIService {
   static String apiKey = APIKey.openAI;
 
-  static const String _url = "https://api.openai.com/v1/chat/completions";
+  static const String _url = "https://openrouter.ai/api/v1/chat/completions";
 
   static Stream<String> streamChat(String prompt) async* {
     apiKey = APIKey.openAI;
@@ -14,12 +14,14 @@ class AIService {
     request.headers.addAll({
       "Content-Type": "application/json",
       "Authorization": "Bearer $apiKey",
+      "HTTP-Referer": "http://localhost",
+      "X-Title": "SieuTuVi",
     });
 
     request.body = jsonEncode({
-      "model": "gpt-4o-mini",
+      "model": "google/gemini-2.0-flash:free",
       "messages": [
-        {"role": "user", "content": prompt},
+        {"role": "user", "content": "Your prompt here"},
       ],
       "stream": true,
     });

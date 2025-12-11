@@ -60,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
             Column(
               children: [
                 _createRowHoroscopeOption(),
-                _createRowChineseHoroscopeOption(),
+                // _createRowChineseHoroscopeOption(),
               ],
             ),
 
@@ -113,7 +113,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
 
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
             child: Row(
               children: [
                 Expanded(
@@ -129,6 +129,8 @@ class _ChatPageState extends State<ChatPage> {
               ],
             ),
           ),
+
+          const SizedBox(height: 18),
         ],
       ),
     );
